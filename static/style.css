@@ -1,0 +1,78 @@
+:root {
+    --bg-cream: #fdfbf7;
+    --text-maroon: #801b1b;
+    --accent-gold: #d4af37;
+    --seal-green: #748c70;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Playfair Display', serif;
+    background-color: var(--bg-cream);
+    color: var(--text-maroon);
+    overflow-x: hidden;
+}
+
+/* Madhubani Background Overlay */
+.madhubani-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/static/madhubani.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.1; /* Very faint watermark */
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Butterfly Animations */
+#butterfly-container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0; /* Hidden until envelope opens */
+    transition: opacity 2s ease-in;
+}
+
+.butterfly {
+    width: 40px;
+    position: absolute;
+    pointer-events: auto; /* Make them clickable */
+    cursor: pointer;
+    animation: flutter 0.8s infinite alternate ease-in-out;
+    transition: top 1s ease-out, left 1s ease-out;
+}
+
+@keyframes flutter {
+    0% { transform: scaleY(1) translateY(0); }
+    100% { transform: scaleY(0.4) translateY(-10px); }
+}
+
+/* Starting positions */
+.b1 { top: 20%; left: 10%; }
+.b2 { top: 50%; left: 80%; }
+.b3 { top: 80%; left: 20%; }
+
+/* Styling Updates */
+#wax-seal { background-color: var(--seal-green); /*...keep rest of seal css...*/ }
+.map-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--text-maroon);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px solid var(--accent-gold);
+    border-radius: 5px;
+}
+.map-link:hover { background-color: var(--accent-gold); color: white; }
+button { background-color: var(--text-maroon); /*...keep rest of button css...*/ }

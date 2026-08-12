@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subhranil & Paramita | Reception</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Google Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+
+    <!-- Interactive Butterflies (Hidden inside the envelope initially) -->
+    <div id="butterfly-container">
+        <svg class="butterfly b1" viewBox="0 0 100 100"><path d="M50,50 Q20,10 10,40 Q30,60 50,50 Q70,60 90,40 Q80,10 50,50 Z" fill="#b02a30"/></svg>
+        <svg class="butterfly b2" viewBox="0 0 100 100"><path d="M50,50 Q20,10 10,40 Q30,60 50,50 Q70,60 90,40 Q80,10 50,50 Z" fill="#d4af37"/></svg>
+        <svg class="butterfly b3" viewBox="0 0 100 100"><path d="M50,50 Q20,10 10,40 Q30,60 50,50 Q70,60 90,40 Q80,10 50,50 Z" fill="#1b4d3e"/></svg>
+    </div>
+
+    <!-- The Envelope Cover -->
+    <div id="envelope-layer">
+        <div class="envelope-texture">
+            <div id="wax-seal" onclick="openInvitation()">S&P</div>
+            <p class="tap-text">Tap to open</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="invitation-layer">
+        <!-- Madhubani Watermark overlay -->
+        <div class="madhubani-bg"></div> 
+
+        <div class="content-wrapper">
+            <div class="hero-section">
+                <p class="intro">|| Shree Shree Prajapataye Namah ||</p>
+                <h1 class="names">Subhranil & Paramita</h1>
+                <p class="intro">Cordially request the pleasure of your gracious presence</p>
+                <div class="date-box">
+                    <span class="material-symbols-outlined">calendar_month</span>
+                    <h2 class="date">15 . 12 . 2026</h2>
+                </div>
+            </div>
+
+            <div class="details-section">
+                <p><strong>To be held at</strong></p>
+                <h3>Agamoni Community Hall</h3>
+                <!-- Clickable Google Maps Link -->
+                <a href="https://maps.app.goo.gl/MEXxFwcVvpySiGacA" target="_blank" class="map-link">
+                    <span class="material-symbols-outlined">location_on</span>
+                    Open in Google Maps
+                </a>
+            </div>
+
+            <!-- (Keep the Countdown section from previous HTML here) -->
+
+            <div class="interactive-section">
+                <div class="rsvp-box">
+                    <h3><span class="material-symbols-outlined">mail</span> RSVP</h3>
+                    <input type="text" id="guestName" placeholder="Your Name">
+                    <select id="isAttending">
+                        <option value="true">Joyfully Accept</option>
+                        <option value="false">Regretfully Decline</option>
+                    </select>
+                    <button onclick="sendRSVP()">Send</button>
+                    <p id="rsvp-status"></p>
+                </div>
+
+                <div class="ai-box">
+                    <h3><span class="material-symbols-outlined">auto_awesome</span> Ask our Virtual Assistant</h3>
+                    <input type="text" id="chatInput" placeholder="e.g., What is the dress code?">
+                    <button onclick="askAI()">Ask</button>
+                    <p id="chat-response"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
