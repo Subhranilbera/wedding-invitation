@@ -31,37 +31,35 @@ setInterval(function() {
 // --- Backend Integrations ---
 async function sendRSVP() {
     const name = document.getElementById('guestName').value;
-    const attending = document.getElementById('isAttending').value === 'true';
+    // Format the response nicely for your email
+    const attending = document.getElementById('isAttending').value === 'true' ? 'Joyfully Accept' : 'Regretfully Decline';
 
     if (!name) {
         document.getElementById('rsvp-status').innerText = "Please enter your name.";
         return;
     }
 
-    const response = await fetch('/api/rsvp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, attending })
-    });
+    document.getElementById('rsvp-status').innerText = "Sending...";
 
-    const result = await response.json();
-    document.getElementById('rsvp-status').innerText = result.message;
-}
+    // PASTE YOUR FORMSPREE URL BELOW
+    const formspreeURL = "https://formspree.io/f/YOUR_UNIQUE_ID_HERE"; 
 
-async function askAI() {
-    const message = document.getElementById('chatInput').value;
-    const responseBox = document.getElementById('chat-response');
-    
-    if (!message) return;
+    try {
+        const response = await fetch(formspreeURL, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "Guest Name": name, "RSVP Status": attending })
+        });
 
-    responseBox.innerText = "Thinking...";
-
-    const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message })
-    });
-
-    const result = await response.json();
-    responseBox.innerText = result.reply;
+        if (response.ok) {
+            document.getElementById('rsvp-status').innerText = "Thank you! Your RSVP has been received.";
+        } else {
+            document.getElementById('rsvp-status').innerText = "Oops! There was a problem submitting your RSVP.";
+        }
+    } catch (error) {
+        document.getElementById('rsvp-status').innerText = "Network error. Please try again.";
+    }
 }
