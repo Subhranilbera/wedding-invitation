@@ -1,55 +1,67 @@
-// --- Envelope & Butterfly Reveal ---
+// --- Envelope Interaction ---
 function openInvitation() {
     const envelope = document.getElementById('envelope-layer');
     const content = document.getElementById('invitation-layer');
-    const butterflies = document.getElementById('butterfly-container');
     
+    // Slide up and fade out the envelope
     envelope.style.transform = 'translateY(-100vh)';
     envelope.style.opacity = '0';
     
+    // Fade in and slide up the content
     setTimeout(() => {
         envelope.style.display = 'none';
         content.style.opacity = '1';
         content.style.transform = 'translateY(0)';
-        butterflies.style.opacity = '1'; // Release the butterflies!
     }, 1000);
 }
 
-// --- Interactive Butterflies ---
-const bugs = document.querySelectorAll('.butterfly');
-bugs.forEach(bug => {
-    // Works for both mobile tapping and desktop clicking
-    bug.addEventListener('touchstart', scatter);
-    bug.addEventListener('click', scatter);
-});
+// --- Countdown Logic ---
+const targetDate = new Date("Dec 15, 2026 18:30:00").getTime();
 
-function scatter(e) {
-    // Move to a random new location on the screen when touched
-    const randomTop = Math.floor(Math.random() * 80) + 10;
-    const randomLeft = Math.floor(Math.random() * 80) + 10;
-    e.target.style.top = randomTop + '%';
-    e.target.style.left = randomLeft + '%';
-}
+setInterval(function() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+    document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    document.getElementById("mins").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    document.getElementById("secs").innerText = Math.floor((distance % (1000 * 60)) / 1000);
+}, 1000);
 
 // --- Backend Integrations ---
 async function sendRSVP() {
     const name = document.getElementById('guestName').value;
     const attending = document.getElementById('isAttending').value === 'true';
 
-    if (!name) return;
-    document.getElementById('rsvp-status').innerText = "Sending...";
-
-    try {
-        const response = await fetch('/api/rsvp', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, attending })
-        });
-        const result = await response.json();
-        document.getElementById('rsvp-status').innerText = result.message;
-    } catch (error) {
-        document.getElementById('rsvp-status').innerText = "Network error. Please try again.";
+    if (!name) {
+        document.getElementById('rsvp-status').innerText = "Please enter your name.";
+        return;
     }
+
+    const response = await fetch('/api/rsvp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, attending })
+    });
+
+    const result = await response.json();
+    document.getElementById('rsvp-status').innerText = result.message;
 }
 
-// Keep the askAI() function from previous code exactly as it was
+async function askAI() {
+    const message = document.getElementById('chatInput').value;
+    const responseBox = document.getElementById('chat-response');
+    
+    if (!message) return;
+
+    responseBox.innerText = "Thinking...";
+
+    const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message })
+    });
+
+    const result = await response.json();
+    responseBox.innerText = result.reply;
+}
