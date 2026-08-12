@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subhranil & Paramita</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- Google Fonts for elegant typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- The Envelope Cover -->
+    <div id="envelope-layer">
+        <div class="envelope-texture">
+            <!-- You can replace the div below with an actual <img src="/static/seal.png"> -->
+            <div id="wax-seal" onclick="openInvitation()">S&P</div>
+            <p class="tap-text">Tap to open</p>
+        </div>
+    </div>
+
+    <!-- The Main Invitation Content -->
+    <div id="invitation-layer">
+        
+        <div class="hero-section">
+            <h1 class="names">Subhranil & Paramita</h1>
+            <p class="intro">Request the pleasure of your company at their Reception</p>
+            <h2 class="date">15 . 12 . 2026</h2>
+        </div>
+
+        <div class="details-section">
+            <p><strong>To be held at</strong></p>
+            <h3>Agomoni Community Hall</h3>
+            <p>Reception begins at 6:30 PM</p>
+        </div>
+
+        <div class="countdown-section">
+            <h3>Countdown</h3>
+            <div id="timer">
+                <div><span id="days">00</span><p>Days</p></div>
+                <div><span id="hours">00</span><p>Hours</p></div>
+                <div><span id="mins">00</span><p>Minutes</p></div>
+                <div><span id="secs">00</span><p>Seconds</p></div>
+            </div>
+        </div>
+
+        <div class="interactive-section">
+            <div class="rsvp-box">
+                <h3>RSVP</h3>
+                <input type="text" id="guestName" placeholder="Your Name">
+                <select id="isAttending">
+                    <option value="true">Joyfully Accept</option>
+                    <option value="false">Regretfully Decline</option>
+                </select>
+                <button onclick="sendRSVP()">Send</button>
+                <p id="rsvp-status"></p>
+            </div>
+
+            <div class="ai-box">
+                <h3>Ask our Virtual Assistant</h3>
+                <input type="text" id="chatInput" placeholder="e.g., Is there parking?">
+                <button onclick="askAI()">Ask</button>
+                <p id="chat-response"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
